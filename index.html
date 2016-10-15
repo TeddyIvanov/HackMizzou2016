@@ -4,51 +4,53 @@
 <head>
     <meta charset="utf-8">
     <title>Webcam Test</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
     <script>       
     /*global navigator, $, atob, Blob, params*/
-   var makeblob = function (dataURL) {
-            var BASE64_MARKER = ';base64,';
-            if (dataURL.indexOf(BASE64_MARKER) == -1) {
-                var parts = dataURL.split(',');
-                var contentType = parts[0].split(':')[1];
-                var raw = decodeURIComponent(parts[1]);
-                return new Blob([raw], { type: contentType });
-            }
-            var parts = dataURL.split(BASE64_MARKER);
-            var contentType = parts[0].split(':')[1];
-            var raw = window.atob(parts[1]);
-            var rawLength = raw.length;
+  var makeblob = function (dataURI) {
+//     // convert base64/URLEncoded data component to raw binary data held in a string
+    var byteString;
+    byteString = dataURI.split(",")[1];
+    
 
-            var uInt8Array = new Uint8Array(rawLength);
+//     // separate out the mime component
+//     var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
 
-            for (var i = 0; i < rawLength; ++i) {
-                uInt8Array[i] = raw.charCodeAt(i);
-            }
+    // write the bytes of the string to a typed array
+    // var ia = new Uint8Array(byteString.length);
+    // for (var i = 0; i < byteString.length; i++) {
+    //     ia[i] = byteString.charCodeAt(i);
+    // }
+    
+//     var blob = new Blob(byteArrays, { type: contentType });
+// var file = new File([blob], filename, {type: contentType, lastModified: Date.now()});
 
-            return new Blob([uInt8Array], { type: contentType });
-        }
-        
-    function getEmotions(img){
-        $.ajax({
-            url: "https://api.projectoxford.ai/emotion/v1.0/recognize?",
-            beforeSend: function(xhrObj){
-                // Request headers
-                xhrObj.setRequestHeader("Content-Type","application/octet-stream");
-                xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","4ca8bd58cdea473da3626b9a6bd209b8");
-            },
-            type: "POST",
-            // Request body
-            data: makeblob(img),
-        })
-        .done(function(data) {
-            JSON.stringify(data);
-            alert(JSON.stringify(data));
-        })
-        .fail(function() {
-            alert("error");
-        });
-    }
+    return new File([new Blob([atob(byteString)],{type : 'image/jpeg'})], "poo_surprise.jpg",{type : 'image/jpeg', lastModified: Date.now() });
+}
+
+     var apiKey = "4ca8bd58cdea473da3626b9a6bd209b8";
+ 
+ //apiUrl: The base URL for the API. Find out what this is for other APIs via the API documentation
+ var apiUrl = "https://api.projectoxford.ai/emotion/v1.0/recognize";
+    function CallAPI(file)//, apiUrl, apiKey)
+ {
+ $.ajax({
+ url: apiUrl,
+ beforeSend: function (xhrObj) {
+ xhrObj.setRequestHeader("Content-Type", "application/octet-stream");
+ xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key", apiKey);
+ },
+ type: "POST",
+ data: file,
+ processData: false
+ })
+ .done(function (response) {
+ console.log(response);
+ })
+ .fail(function (error) { console.log(error);
+//  $("#response").text(error.getAllResponseHeaders());
+ });
+ }
     
     $(document).ready(
         function (){
@@ -66,24 +68,16 @@
                  console.dir(video)
                 });
             }
-						console.log("Smile!")
+			    console.log("Smile!")
         
             // Trigger photo take
             document.getElementById("snap").addEventListener("click", function() {
                context.drawImage(video, 0, 0, 640, 480);
-               getEmotions(canvas.toDataURL('image/jpeg'));
+               var s = canvas.toDataURL("image/jpeg");
+            //   getEmotions(s);
+            CallAPI(makeblob(s));
             });
         });
-        // $.ajax({
-        //     url: 'https://api.projectoxford.ai/vision/v1/ocr?' + $.param(params),
-        //     type: 'POST',
-        //     processData: false,
-        //     contentType: 'application/octet-stream',
-        //     data: img
-        // })
-        // .done(function(data) {alert("success");})
-        // .fail(function() {alert("error");});
-        
       
     </script>
 </head>
