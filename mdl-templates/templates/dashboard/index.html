@@ -92,6 +92,7 @@
               var context = canvas.getContext('2d');
               var video = document.getElementById('video');
                context.drawImage(video, 0, 0, 640, 480);
+               context.clearRect(0, 0, canvas.width, canvas.height);
                //console.log(canvas);
                var s = canvas.toDataURL("image/png");
                //console.log(s);
