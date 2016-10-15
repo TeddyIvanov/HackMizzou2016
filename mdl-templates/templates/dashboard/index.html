@@ -112,14 +112,136 @@
       </div>
       <main class="mdl-layout__content mdl-color--grey-100">
         <div class="mdl-grid demo-content">
-          <div class="demo-charts mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
-            <svg fill="currentColor" width="800px" height="200px" viewBox="0 0 1 1" class="demo-chart mdl-cell mdl-cell--4-col mdl-cell--3-col-desktop">
-            </svg>
-          </div>
+
+
+
+
+<div class="container">
+    <div class="column center">
+        <h1>HTML5 Audio Player</h1>
+        <h6>w/ responsive playlist</h6>
+    </div>
+    <div class="column add-bottom">
+        <div id="mainwrap">
+            <div id="nowPlay">
+                <span class="left" id="npAction">Paused...</span>
+                <span class="right" id="npTitle"></span>
+            </div>
+            <div id="audiowrap">
+                <div id="audio0">
+                    <audio preload id="audio1" controls="controls">Your browser does not support HTML5 Audio!</audio>
+                </div>
+                <div id="tracks">
+                    <a id="btnPrev">&laquo;</a>
+                    <a id="btnNext">&raquo;</a>
+                </div>
+            </div>
+            <div id="plwrap">
+                <ul id="plList">
+                    <li>
+                        <div class="plItem">
+                            <div class="plNum">01.</div>
+                            <div class="plTitle">DJ Khaled ftDrake - For Free (OriginalAudio) HQ</div>
+                            <div class="plLength">3:02</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="plItem">
+                            <div class="plNum">02.</div>
+                            <div class="plTitle">Eminem - Not Afraid</div>
+                            <div class="plLength">4:19</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="plItem">
+                            <div class="plNum">03.</div>
+                            <div class="plTitle">Friday - Rebecca Black - Official Music Video</div>
+                            <div class="plLength">3:47</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="plItem">
+                            <div class="plNum">04.</div>
+                            <div class="plTitle">Gemini Syndrome-Resurrection Lyrics</div>
+                            <div class="plLength">3:54</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="plItem">
+                            <div class="plNum">05.</div>
+                            <div class="plTitle">Guns N' Roses - Welcome To The Jungle</div>
+                            <div class="plLength">4:35</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="plItem">
+                            <div class="plNum">06.</div>
+                            <div class="plTitle">Justin Bieber - Baby ft. Ludacris</div>
+                            <div class="plLength">3:45</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="plItem">
+                            <div class="plNum">07.</div>
+                            <div class="plTitle">Luke Bryan - Huntin', Fishin' And Lovin' Every Day</div>
+                            <div class="plLength">4:31</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="plItem">
+                            <div class="plNum">08.</div>
+                            <div class="plTitle">Michael Jackson - Billie Jean</div>
+                            <div class="plLength">4:56</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="plItem">
+                            <div class="plNum">09.</div>
+                            <div class="plTitle">PSY - GANGNAM STYLE(강남스타일) MV</div>
+                            <div class="plLength">5:46</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="plItem">
+                            <div class="plNum">10.</div>
+                            <div class="plTitle">The Chainsmokers - Closer (Lyric) ft. Halsey</div>
+                            <div class="plLength">4:22</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="plItem">
+                            <div class="plNum">11.</div>
+                            <div class="plTitle">The Temptations - My Girl</div>
+                            <div class="plLength">2:43</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="plItem">
+                            <div class="plNum">12.</div>
+                            <div class="plTitle">Vance Joy - 'Riptide' Official Video</div>
+                            <div class="plLength">3:24</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
           <div class="demo-graphs mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--8-col">
-            <canvas id="video" width="500" height="500" style="border:1px solid #000000;">
-              
-            </canvas>
+            <video id="video" width="500" height="500" style="border:2px solid #000000;">
+
+            <script>
+            var livefeed = document.getElementById('video');
+              if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                // Not adding `{ audio: true }` since we only want video now
+                navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
+                 livefeed.src = window.URL.createObjectURL(stream);
+                 livefeed.play();
+                });
+            }
+            </script>
+            
+            </video>
           </div>
           <div class="demo-cards mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet mdl-grid mdl-grid--no-spacing">
             <div class="demo-updates mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet mdl-cell--12-col-desktop">
@@ -222,6 +344,10 @@
         </defs>
       </svg>
       <a href="https://github.com/google/material-design-lite/blob/master/templates/dashboard/" target="_blank" id="view-source" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast">View Source</a>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="../../material.min.js"></script>
+    <script type="text/javascript" src = "js.js"></script>
+    
+
   </body>
 </html>
