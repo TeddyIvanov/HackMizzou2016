@@ -96,11 +96,11 @@ function calcScore(score_set){
                 check++;
             }
             var tmp3 = 1/timer2 + sum;
-            /*console.log("tmp, compare: " + tmp + "," + tmp3);
+            console.log("tmp, compare: " + tmp + "," + tmp3);
             console.log("pdelta, ndelta: " + pdelta + "," + ndelta);
             console.log("timer: " + timer2);
             console.log(score);
-            console.log(score2);*/
+            console.log(score2);
             if(check > 1) 
             {
                 score2['bad'] = score2['good'] = score['bad'] = score['good'] = 0;
