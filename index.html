@@ -9,23 +9,22 @@
     /*global navigator, $, atob, Blob, params*/
   var makeblob = function (dataURI) {
 //     // convert base64/URLEncoded data component to raw binary data held in a string
-    var byteString;
-    byteString = dataURI.split(",")[1];
+    var byteString = dataURI.split(",")[1];
     
 
 //     // separate out the mime component
 //     var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
 
     // write the bytes of the string to a typed array
-    // var ia = new Uint8Array(byteString.length);
-    // for (var i = 0; i < byteString.length; i++) {
-    //     ia[i] = byteString.charCodeAt(i);
-    // }
+    var ia = new Uint8Array(byteString.length);
+    for (var i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i);
+    }
     
 //     var blob = new Blob(byteArrays, { type: contentType });
 // var file = new File([blob], filename, {type: contentType, lastModified: Date.now()});
 
-    return new File([new Blob([atob(byteString)],{type : 'image/jpeg'})], "poo_surprise.jpg",{type : 'image/jpeg', lastModified: Date.now() });
+    return new File([new Blob([ia],{type : 'image/jpeg'})], "poo_surprise.jpg",{type : 'image/jpeg', lastModified: Date.now() });
 }
 
      var apiKey = "4ca8bd58cdea473da3626b9a6bd209b8";
@@ -41,7 +40,7 @@
  xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key", apiKey);
  },
  type: "POST",
- data: file,
+ data: "https://hackmizzou16-dpr989.c9users.io/images/poo.png",//file,
  processData: false
  })
  .done(function (response) {
