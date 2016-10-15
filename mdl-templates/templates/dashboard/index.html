@@ -59,6 +59,47 @@
       z-index: 900;
     }
     </style>
+    <script src="../../material.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script type="text/javascript" src = "js.js"></script>
+    <script type="text/javascript" src="a.js"></script>
+    <script type="text/javascript" src="poo.js"></script>
+  
+    <script>
+            /*global $*/
+            $(document).ready(function(){
+              var livefeed = document.getElementById('video');
+              if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                // Not adding `{ audio: true }` since we only want video now
+                navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
+                 livefeed.src = window.URL.createObjectURL(stream);
+                 livefeed.play();
+                });
+              }
+              
+              var aud = document.getElementById("audio1");
+              
+              aud.onplay = startLoop;
+              aud.onpause = pauseLoop;
+        	
+              
+            });
+            
+            // Trigger photo take
+            function takePicture() {
+               // Elements for taking the snapshot
+              var canvas = document.getElementById('canvas');
+              var context = canvas.getContext('2d');
+              var video = document.getElementById('video');
+               context.drawImage(video, 0, 0, 640, 480);
+               //console.log(canvas);
+               var s = canvas.toDataURL("image/png");
+               //console.log(s);
+                // getEmotions(s);
+               CallAPI(makeblob(s));
+      
+           }
+      </script>
   </head>
   <body>
     <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
@@ -228,20 +269,7 @@
     </div>
 </div>
           <div class="demo-graphs mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--8-col">
-            <video id="video" width="500" height="500" style="border:2px solid #000000;">
-
-            <script>
-            var livefeed = document.getElementById('video');
-              if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-                // Not adding `{ audio: true }` since we only want video now
-                navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
-                 livefeed.src = window.URL.createObjectURL(stream);
-                 livefeed.play();
-                });
-            }
-            </script>
-            
-            </video>
+            <video id="video" width="500" height="500" style="border:2px solid #000000;"></video>
           </div>
           <div class="demo-cards mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet mdl-grid mdl-grid--no-spacing">
             <div class="demo-updates mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet mdl-cell--12-col-desktop">
@@ -344,10 +372,6 @@
         </defs>
       </svg>
       <a href="https://github.com/google/material-design-lite/blob/master/templates/dashboard/" target="_blank" id="view-source" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast">View Source</a>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="../../material.min.js"></script>
-    <script type="text/javascript" src = "js.js"></script>
-    
-
+      <canvas id="canvas" width="640" height="480"></canvas>
   </body>
 </html>

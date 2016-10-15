@@ -1,1 +1,0 @@
-/*global navigator, $, atob, Blob, params*/
