@@ -1,38 +1,38 @@
-<!doctype html>
+
+<!DOCTYPE html>
 <html>
 <head>
-<!-- Emotion preview key 4ca8bd58cdea473da3626b9a6bd209b8
-	 Face Preview key 0e691d2a08c444b2bb6e8bddbc9cc5d2
-	 Video Preview key c83cee54081e46a08da49e656a4999df
-	 Computer Vision key 3c45e1131a554fe19ada5afcef5ed59d
+    <meta charset="utf-8">
+    <title>Webcam Test</title>
+    <script>       
+        function takePicture(){
+            // Get access to the camera!
+            if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                // Not adding `{ audio: true }` since we only want video now
+                navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
+                 video.src = window.URL.createObjectURL(stream);
+                 video.play();
+                });
+            }
 
- -->
-	<title>WebRTC: Still photo capture demo</title>
-	<meta charset='utf-8'>
-	<link rel="stylesheet" href="main.css" type="text/css" media="all">
-	<script src="capture.js">
-	</script>
-<link href='/s/shared.css'></head>
-<body>
-<div class="contentarea">
-	<h1>
-		MDN - WebRTC: Still photo capture demo
-	</h1>
-	<p>
-		This example demonstrates how to set up a media stream using your built-in webcam, fetch an image from that stream, and create a PNG using that image.
-	</p>
-  <div class="camera">
-    <video id="video">Video stream not available.</video>
-    <button id="startbutton">Take photo</button> 
-  </div>
-  <canvas id="canvas">
-  </canvas>
-  <div class="output">
-    <img id="photo" alt="The screen capture will appear in this box."> 
-  </div>
-	<p>
-		Visit our article <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Taking_still_photos"> Taking still photos with WebRTC</a> to learn more about the technologies used here.
-	</p>
-</div>
-<div class='mdn-footer'>All text content on MDN is offered under the <a href='http://creativecommons.org/licenses/by-sa/2.5/'>CC-SA-BY</a> license, version 2.5 or later. All sample code offered on this site is provided under the <a href='https://creativecommons.org/publicdomain/zero/1.0/'>CC0 (Public Domain)</a> license and may be reused or repurposed without attribution.</div></body>
+            // Elements for taking the snapshot
+            var canvas = document.getElementById('canvas');
+            var context = canvas.getContext('2d');
+            var video = document.getElementById('video');
+
+            // Trigger photo take
+            document.getElementById("snap").addEventListener("click", function() {
+               context.drawImage(video, 0, 0, 640, 480);
+            });
+
+            // Grab elements, create settings, etc.
+            var video = document.getElementById('video');
+        }
+    </script>
+</head>
+    <body>
+        <video id="video" width="640" height="480" autoplay></video>
+        <button id="snap" onclick="takePicture()">Snap Photo</button>
+        <canvas id="canvas" width="640" height="480"></canvas>
+    </body>
 </html>
